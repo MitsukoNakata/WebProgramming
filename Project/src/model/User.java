@@ -15,9 +15,10 @@ public class User {
 
 
 //ログインセッション用コンストラクター
-	public User(String loginId, String name) {
+	public User(String loginId, String name ,int id) {
 		this.loginId = loginId;
 		this.name = name;
+		this.id = id;
 	}
 //リスト用。
 	public User(int id, String loginId, String name, Date birthDate, String password, String createDate,
@@ -30,6 +31,18 @@ public class User {
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 	}
+
+	//新規登録用
+
+	public User(String loginId, String password, String name, Date birthDate) {
+
+		this.loginId = loginId;
+		this.name = name;
+		this.birthDate = birthDate;
+		this.password = password;
+
+	}
+
 //各属性のゲッターとセッター
 	public int getId() {
 		return id;
@@ -86,6 +99,7 @@ public class User {
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
+
 
 
 

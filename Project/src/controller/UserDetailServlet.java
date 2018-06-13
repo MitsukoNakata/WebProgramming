@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,17 +15,18 @@ import dao.UserDao;
 import model.User;
 
 /**
- * Servlet implementation class UserListServlet
+ * Servlet implementation class UserDetailsServlet
  */
-@WebServlet("/UserListServlet")
-public class UserListServlet extends HttpServlet {
+@WebServlet("/UserDetailServlet")
+public class UserDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserListServlet() {
+    public UserDetailServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -34,7 +34,6 @@ public class UserListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//ログインセッションの有無のチェック
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
@@ -50,25 +49,26 @@ public class UserListServlet extends HttpServlet {
 		}
 
 
-			// ユーザ一覧情報を取得全体の情報
-			UserDao userDao = new UserDao();
-			List<User> userList = userDao.findAll();
 
-			// リクエストスコープにfilndAllで取得した全ユーザリストをセット。
-			request.setAttribute("userList", userList);
+        String str= request.getParameter("id");
+        int id = Integer.parseInt(str);
 
-			// ユーザ一覧のjspにフォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
-			dispatcher.forward(request, response);
+        UserDao userDao = new UserDao();
+ 		User user = userDao.userDetail(id);
 
+ 		HttpSession session2 = request.getSession();
+ 		session2.setAttribute("user", user);
+		// フォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userDetail.jsp");
+		dispatcher.forward(request, response);
 		}
 
-	/**
+		/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		doGet(request, response);
 	}
 
 }

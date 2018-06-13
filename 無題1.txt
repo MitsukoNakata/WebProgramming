@@ -1,0 +1,20 @@
+新規登録　例文
+
+INSERT INTO user 
+(login_id,password,name,birth_date,create_date,update_date)
+VALUES
+('e5mary','e5121512','中田　光子',19880409,cast( now() as datetime ),cast( now() as datetime ));
+
+
+ユーザ情報更新
+update user set password = password where id = 1;
+update user set update_date = cast( now() as datetime ) where id = 1;
+update user set update_date = cast( now() as datetime ) where id = 1;
+update user set update_date = cast( now() as datetime ) where id = 1;
+update user set update_date = cast( now() as datetime ) where id = 1;
+
+
+
+
+ユーザ削除例文
+DELETE FROM user WHERE id = 2;

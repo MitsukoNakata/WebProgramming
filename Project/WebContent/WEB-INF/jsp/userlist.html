@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,23 +10,30 @@
 table, td, th {border: 1px black solid;}
 table {
   width: 400;
+
   margin: 0 auto;
   border: solid 1px;
 }
 </style>
 </head>
 <body>
-<p style="background-color:gray;text-align:right"><b><font color=white>ユーザ名さん　　　</font></b><a href="login.html" >ログアウト</a></p>
-<h1 style="text-align:center">ユーザ一覧</h1>
+<p style="background-color:gray;text-align:right"><b><font color=white>${userInfo.name} さん　　　</font></b> <a href="LogoutServlet" class="navbar-link logout-link">ログアウト</a></p>
+<h1 style="text-align:center">ユーザ管理システム</h1>
 <br>
 <br>
-<p style="text-align:right"><a href="register.html" >新規登録</a></p>
-<p style="text-align:center">ログインID　　<input type="text"  id="id">
+ <div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">検索条件</div>
+				<p style="text-align:right"><a href="register.html" >新規登録</a></p>
+				<p style="text-align:center">ログインID　　<input type="text"  id="id">
 
-<p style="text-align:center">ユーザ名　　　<input type="text" name="username"></p>
-<p style="text-align:center">生年月日　　　<input type="text"  name="birthday"></p>
-<p style="text-align:right"><a href="userlist.html"><input type="submit" value="　　検索　　"></a></p>
-<hr>
+				<p style="text-align:center">ユーザ名　　　<input type="text" name="username"></p>
+				<p style="text-align:center">生年月日　　　<input type="text"  name="birthday"></p>
+				 <div class="text-right">
+                  <button type="submit" value="検索" class="btn btn-primary form-submit">検索</button>
+                </div>
+
 
 <table>
 <tr bgcolor="silver" align="center" >

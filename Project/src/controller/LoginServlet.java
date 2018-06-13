@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 		//自動生成するとget.Writerがついてくるのでけす。
 
 		//ログイン画面のJSPファイルをフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
         		request.setAttribute("errMsg", "ユーザーが見つかりません。登録がないかIDやパスワードに入力誤りがあります。");
 
         		//もう一度login.jsp画面を出す
-        		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+        		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
         		dispatcher.forward(request, response);
         		return;     //データが見つかった場合は次の処理に行く。
         	}
@@ -81,7 +81,7 @@ public class LoginServlet extends HttpServlet {
         	//リクエスト情報を引き継げないという特徴をもっていいる。
         	//リダイレクトの方がトラフィックは多い。
         	//なぜ使う？？
-        	response.sendRedirect("userList.jsp");
+        	response.sendRedirect("UserListServlet");
 
 
 
