@@ -37,11 +37,9 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.setContentType("text/html; charset=Shift_JIS");
+		response.setContentType("text/html; charset=UTF-8");
 
 		PrintWriter out = response.getWriter();
-
 		String target = request.getRequestURI();
 
 		HttpSession session = request.getSession(false);

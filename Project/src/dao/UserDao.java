@@ -38,8 +38,6 @@ public class UserDao {
 			e.printStackTrace();
 		}
 
-
-
 		Connection conn = null;
 	        try {
 	            // データベースへ接続
@@ -89,8 +87,8 @@ public class UserDao {
 	            conn = DBManager.getConnection();
 
 	            // SELECT文を準備
-	            // TODO: 未実装：管理者以外を取得するようSQLを変更する
-	            String sql = "SELECT * FROM user";
+
+	            String sql = "SELECT * FROM user WHERE id not in (1)";
 
 	             // SELECTを実行し、結果表を取得
 	            Statement stmt = conn.createStatement();
@@ -305,6 +303,77 @@ public class UserDao {
 
 	    	 return true;
 	    }
+
+		//ユーザ検索用
+
+	    public List<User> searchUser(String loginId,String name,String dateStart,String dateEnd) {
+	        Connection conn = null;
+	        List<User> userList = new ArrayList<User>();
+
+	        try {
+	            // データベースへ接続
+	            conn = DBManager.getConnection();
+
+	            // SELECT文を準備
+	           //idで検索
+
+
+	            String sql  = "SELECT * FROM user"
+	            				+ " WHERE NULLIF(login_id,'') = COALESCE(?,NULLIF(login_id,''))"
+	            				+" AND name LIKE ?"
+	            				+" AND birth_date >= ?"
+	            				+" AND NULLIF(birth_date,current_date) <= COALESCE(?,NULLIF(birth_date,current_date))"
+	            				+" AND id NOT IN (1)";
+
+	             // SELECTを実行し、結果表を取得
+	            PreparedStatement pStmt = conn.prepareStatement(sql);
+
+	            if(loginId.isEmpty()) {
+	            loginId = null;
+	            }if(dateEnd.isEmpty()) {
+	            	dateEnd = null;
+	            }
+
+	            pStmt.setString(1, loginId);
+	            pStmt.setString(2, "%" + name + "%");
+		        pStmt.setString(3, dateStart);
+		        pStmt.setString(4, dateEnd);
+
+	            ResultSet rs = pStmt.executeQuery();
+
+	            // 結果表に格納されたレコードの内容を
+	            // Userインスタンスに設定し、ArrayListインスタンスに追加
+	            while (rs.next()) {
+	                int id = rs.getInt("id");
+	                loginId = rs.getString("login_id");
+	                name = rs.getString("name");
+	                Date birthDate = rs.getDate("birth_date");
+	                String password = rs.getString("password");
+	                String createDate = rs.getString("create_date");
+	                String updateDate = rs.getString("update_date");
+	                User user = new User(id, loginId, name, birthDate, password, createDate, updateDate);
+	                userList.add(user);
+
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            return null;
+	        } finally {
+	            // データベース切断
+	            if (conn != null) {
+	                try {
+	                    conn.close();
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
+	                    return null;
+	                }
+	            }
+	        }
+	        if (userList.size()==0) {
+                return null;
+	        }
+            return userList;
+	        }
 
 
 }

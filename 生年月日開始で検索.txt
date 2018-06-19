@@ -1,0 +1,51 @@
+		//生年月日開始時だけある
+
+	    public List<User> findbyDateStart(String dateStart) {
+	        Connection conn = null;
+	        List<User> userList = new ArrayList<User>();
+
+	        try {
+	            // データベースへ接続
+	            conn = DBManager.getConnection();
+
+	            // SELECT文を準備
+	           //idで検索
+	            String sql = "SELECT * FROM user WHERE birth_date >= ? AND id NOT IN (1);";
+
+	             // SELECTを実行し、結果表を取得
+	            PreparedStatement pStmt = conn.prepareStatement(sql);
+	            pStmt.setString(1, "%" + name + "%");
+	            ResultSet rs = pStmt.executeQuery();
+
+	            // 結果表に格納されたレコードの内容を
+	            // Userインスタンスに設定し、ArrayListインスタンスに追加
+	            while (rs.next()) {
+	                int id = rs.getInt("id");
+	                String loginId = rs.getString("login_id");
+	                String name = rs.getString("name");
+	                Date birthDate = rs.getDate("birth_date");
+	                String password = rs.getString("password");
+	                String createDate = rs.getString("create_date");
+	                String updateDate = rs.getString("update_date");
+	                User user = new User(id, loginId, name, birthDate, password, createDate, updateDate);
+	                userList.add(user);
+
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            return null;
+	        } finally {
+	            // データベース切断
+	            if (conn != null) {
+	                try {
+	                    conn.close();
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
+	                    return null;
+	                }
+	            }
+	        }
+	        if (userList.size()==0) {
+                return null;
+            }return userList;
+	    }

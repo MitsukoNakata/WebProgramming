@@ -32,14 +32,15 @@ public class User {
 		this.updateDate = updateDate;
 	}
 
-	//新規登録用
+	//検索結果出力用
 
-	public User(String loginId, String password, String name, Date birthDate) {
+	public User(int id, String loginId,String name, Date birthDate) {
 
+		this.id = id;
 		this.loginId = loginId;
 		this.name = name;
 		this.birthDate = birthDate;
-		this.password = password;
+
 
 	}
 

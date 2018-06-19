@@ -1,0 +1,120 @@
+
+------------------------------loginID
+
+				UserDao userDao = new UserDao();
+				List<User> userList = userDao.findbyLoginId(loginId);
+		
+				if(userList == null) {
+		        request.setAttribute("errMsg", "該当のユーザーが見つかりません。");
+		
+		        		//もう一度login.jsp画面を出す
+		        		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+		        		dispatcher.forward(request, response);
+		        		return;     //データが見つかった場合は次の処理に行く。
+		        	}
+		
+					request.setAttribute("userList", userList);
+		
+					// ユーザ一覧のjspにフォワード
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+					dispatcher.forward(request, response);
+	}
+	
+	
+	
+	-----------------------Name
+				UserDao userDao = new UserDao();
+				List<User> userList = userDao.findbyName(name);
+		
+				if(userList == null) {
+		        request.setAttribute("errMsg", "該当のユーザーが見つかりません。");
+		
+		        		//もう一度userList.jsp画面を出す
+		        		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+		        		dispatcher.forward(request, response);
+		        		return;     //データが見つかった場合は次の処理に行く。
+		        	}
+		
+					request.setAttribute("userList", userList);
+		
+					// ユーザ一覧のjspにフォワード
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+					dispatcher.forward(request, response);
+	}
+	
+	
+	
+	
+-------------------------dateStart only
+				UserDao userDao = new UserDao();
+				List<User> userList = userDao.findbyDateStart(dateStart);
+		
+				if(userList == null) {
+		        request.setAttribute("errMsg", "該当のユーザーが見つかりません。");
+		
+		        		//もう一度userList.jsp画面を出す
+		        		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+		        		dispatcher.forward(request, response);
+		        		return;     //データが見つかった場合は次の処理に行く。
+		        	}
+		
+					request.setAttribute("userList", userList);
+		
+					// ユーザ一覧のjspにフォワード
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+					dispatcher.forward(request, response);
+	}
+	
+	
+-------------------------dateEnd only
+				UserDao userDao = new UserDao();
+				List<User> userList = userDao.findbyDateEnd(dateEnd);
+		
+				if(userList == null) {
+		        request.setAttribute("errMsg", "該当のユーザーが見つかりません。");
+		
+		        		//もう一度userList.jsp画面を出す
+		        		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+		        		dispatcher.forward(request, response);
+		        		return;     //データが見つかった場合は次の処理に行く。
+		        	}
+		
+					request.setAttribute("userList", userList);
+		
+					// ユーザ一覧のjspにフォワード
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+					dispatcher.forward(request, response);
+	}
+	
+-------------------------date
+				UserDao userDao = new UserDao();
+				List<User> userList = userDao.findbyDate(dateStart,dateEnd);
+		
+				if(userList == null) {
+		        request.setAttribute("errMsg", "該当のユーザーが見つかりません。");
+		
+		        		//もう一度userList.jsp画面を出す
+		        		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+		        		dispatcher.forward(request, response);
+		        		return;     //データが見つかった場合は次の処理に行く。
+		        	}
+		
+					request.setAttribute("userList", userList);
+		
+					// ユーザ一覧のjspにフォワード
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+					dispatcher.forward(request, response);
+	}		
+	
+-------------------------EverythingEmpty
+				UserDao userDao = new UserDao();
+				List<User> userList = userDao.findAll();
+		
+					request.setAttribute("userList", userList);
+		
+					// ユーザ一覧のjspにフォワード
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+					dispatcher.forward(request, response);
+	}			
+	
+	

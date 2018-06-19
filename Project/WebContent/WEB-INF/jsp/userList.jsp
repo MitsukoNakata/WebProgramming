@@ -32,8 +32,14 @@ table {
 	<form class="form-signin" action="UserListServlet" method="post">
 	<table border="0">
 		<tr>
+		<td>
+		<td  align="center">
+		<c:if test="${errMsg!= null}" >
+		 <font color="red">${errMsg}</font>
+		</c:if>
+		<tr>
 			<td align="right"><b>ログインID　</b></td>
-			<td><input type="text"  name="loginId" size="39" maxlength="20" ></td>
+			<td><input type="text"  name="loginId" size="39" maxlength="20" value=${loginId}></td>
 
 		</tr>
 		<tr>
@@ -42,8 +48,8 @@ table {
 		</tr>
 		<tr>
 			<td align="right"><b>生年月日　</b></td>
-			<td><input type="date" name="date-start" id="date-start" class="form-control" size="30"/>~
-					<input type="date" name="date-end" id="date-end" class="form-control"/></td>
+			<td><input type="date" name="date-start" id="date-start" value=${dateStart} class="form-control" size="30"/>~
+					<input type="date" name="date-end" id="date-end" value=${dateEnd} class="form-control"/></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -62,7 +68,6 @@ table {
 </tr>
   <tbody>
                  <c:forEach var="user" items="${userList}" >
-                   <c:if test ="${user.id > 1}">
                    <tr>
                      <td>${user.loginId} </td>
                      <td>${user.name}</td>
@@ -87,7 +92,6 @@ table {
 					</c:choose>
 					</td>
                    </tr>
-                   </c:if>
                  </c:forEach>
                </tbody>
 </table>

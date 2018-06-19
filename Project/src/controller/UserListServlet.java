@@ -68,7 +68,35 @@ public class UserListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+        //フォームで入力された内容を取得
+        String loginId = request.getParameter("loginId");
+        String name = request.getParameter("name");
+        String dateStart = request.getParameter("date-start");
+        String dateEnd = request.getParameter("date-end");
 
+		request.setAttribute("loginId", loginId);
+		request.setAttribute("name", name);
+		request.setAttribute("dateStart", dateStart);
+		request.setAttribute("dateEnd", dateEnd);
+
+		UserDao userDao = new UserDao();
+		List<User> userList = userDao.searchUser(loginId,name,dateStart,dateEnd);
+
+		if(userList == null) {
+        request.setAttribute("errMsg", "該当のユーザーが見つかりません。");
+
+        		//もう一度userList.jsp画面を出す
+        		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+        		dispatcher.forward(request, response);
+        		return;     //データが見つかった場合は次の処理に行く。
+        	}
+
+			request.setAttribute("userList", userList);
+
+			// ユーザ一覧のjspにフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+			dispatcher.forward(request, response);
 	}
 
 }

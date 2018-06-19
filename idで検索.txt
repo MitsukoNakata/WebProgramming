@@ -1,0 +1,44 @@
+		request.setCharacterEncoding("UTF-8");
+        //フォームで入力された内容を取得
+        String loginId = request.getParameter("loginId");
+        String name = request.getParameter("name");
+        String dateStart = request.getParameter("date-start");
+        String dateEnd = request.getParameter("date-end");
+
+		boolean isId = loginId.isEmpty();
+		boolean isName = name.isEmpty();
+		boolean isDateStart = dateStart.isEmpty();
+		boolean isDateEnd = dateEnd.isEmpty();
+
+		request.setAttribute("loginId", loginId);
+		request.setAttribute("name", name);
+		request.setAttribute("dateStart", dateStart);
+		request.setAttribute("dateEnd", dateEnd);
+
+
+		UserDao userDao = new UserDao();
+     	User user = userDao.findByLoginId(loginId);
+
+		if(user == null) {
+        request.setAttribute("errMsg", "該当のユーザーが見つかりません。");
+
+        		//もう一度login.jsp画面を出す
+        		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+        		dispatcher.forward(request, response);
+        		return;     //データが見つかった場合は次の処理に行く。
+        	}
+
+        	//該当データあり　リクエストをまたいてでインスタンスを利用する為、セッションスコープを利用する
+        	//HttpSEssionインスタンスの取得
+        	HttpSession session = request.getSession();
+        	//属性名を指定してスコープにインスタンスを保存　すでに同じ属性名でインスタンスが保存されている場合は上書きされる　　
+        	session.setAttribute("UserList", user);     //保存するデータを名前と値のペアで登録。名前はString型、値はObject型
+
+
+			// ユーザ一覧のjspにフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+			dispatcher.forward(request, response);
+
+
+
+	}
